@@ -57,7 +57,7 @@ export default async function generateRoutes(fastify: FastifyInstance) {
         temperature: 0.6,
         max_tokens: 1024,
         messages: [
-          { role: "system", content: "You are an expert IT Recruiter. Write a job description. Return strictly the text." },
+          { role: "system", content: "You are an expert IT Recruiter. Write a clear, professional job description. Return STRICTLY the text of the job description. DO NOT include any conversational filler, greetings, or introductory phrases like 'Here is the description'." },
           { role: "user", content: `Job Title: ${jobTitle}\nKeywords: ${keywords.join(', ')}` }
         ]
       });
