@@ -1,4 +1,4 @@
-export interface CoverLetterBody {
+export interface CandidateVacancyPayload {
   vacancyTitle: string;
   vacancyDescription: string;
   candidateAbout?: string;

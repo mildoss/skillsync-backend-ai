@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import OpenAI from 'openai';
-import { CoverLetterBody, VacancyBody } from '../types';
+import {CandidateVacancyPayload, VacancyBody} from '../types';
 import { verifySecret } from '../hooks/auth';
 
 export default async function generateRoutes(fastify: FastifyInstance) {
@@ -13,7 +13,7 @@ export default async function generateRoutes(fastify: FastifyInstance) {
 
   fastify.addHook('preHandler', verifySecret);
 
-  fastify.post<{ Body: CoverLetterBody }>('/cover-letter', async (request, reply) => {
+  fastify.post<{ Body: CandidateVacancyPayload }>('/cover-letter', async (request, reply) => {
     const { vacancyTitle, vacancyDescription, candidateAbout, candidateSkills, candidateExperience } = request.body;
 
     const skillsText = candidateSkills && candidateSkills.length > 0
@@ -65,6 +65,50 @@ export default async function generateRoutes(fastify: FastifyInstance) {
     } catch (error) {
       fastify.log.error(error);
       return reply.status(500).send({ error: 'Failed to generate job description' });
+    }
+  });
+
+  fastify.post<{ Body: CandidateVacancyPayload }>('/match', async (request, reply) => {
+    const { vacancyTitle, vacancyDescription, candidateSkills, candidateExperience, candidateAbout } = request.body;
+
+    const skillsText = candidateSkills && candidateSkills.length > 0
+      ? candidateSkills.join(', ')
+      : 'Not explicitly specified.';
+
+    const prompt = `
+      Vacancy: ${vacancyTitle}
+      Description: ${vacancyDescription}
+      
+      Candidate Skills: ${skillsText}
+      Candidate Experience: ${candidateExperience || 'Not specified'}
+      About Me (Bio/Motivation): ${candidateAbout || 'Not specified'}
+      
+      Analyze how well the candidate fits this vacancy.
+    `;
+
+    try {
+      const completion = await openai.chat.completions.create({
+        model: MODEL,
+        temperature: 0.2,
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "system",
+            content: `You are an expert HR AI assistant evaluating candidate matches. 
+            You MUST respond ONLY with a valid JSON object containing exactly two keys:
+            - "score": an integer from 0 to 100 representing the match percentage.
+            - "reason": a short, one-sentence explanation of why you gave this score.`
+          },
+          { role: "user", content: prompt }
+        ]
+      });
+
+      const result = JSON.parse(completion.choices[0]?.message?.content || '{}');
+      return reply.send(result);
+
+    } catch (error) {
+      fastify.log.error(error);
+      return reply.status(500).send({ error: 'Failed to calculate matching score' });
     }
   });
 }
