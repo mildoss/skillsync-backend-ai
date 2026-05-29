@@ -162,10 +162,10 @@ For issues, questions, or contributions, please open an issue on the [GitHub rep
 ## Related Projects
 
 This is part of the SkillSync platform ecosystem. Other related services include:
+- [SkillSync Backend - Main Service](https://github.com/mildoss/skillsync-backend)
 - [SkillSync Backend - Payment Service](https://github.com/mildoss/skillsync-backend-payment)
-- SkillSync Backend (main service)
-- SkillSync Frontend
-- Other microservices
+- [SkillSync Backend - Auth Service](https://github.com/Eugene-Stellar/SkillSync-auth-service)
+- [SkillSync Frontend](https://github.com/mildoss/skillsync-frontend)
 
 ## OpenAI Integration
 
@@ -176,4 +176,4 @@ This service uses the OpenAI API for AI-powered features. Make sure you have:
 
 ---
 
-**Last Updated**: 2026-05-15
+**Last Updated**: 2026-05-29
