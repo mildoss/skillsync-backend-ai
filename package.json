@@ -1,6 +1,8 @@
 {
   "name": "skillsync-backend-ai",
   "version": "1.0.0",
+  "description": "Ai microservice for SkillSync Job Board Platform",
+  "author": "Vladislav Maslo",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
@@ -8,9 +10,7 @@
     "start": "node dist/server.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "dotenv": "^17.4.2",
     "fastify": "^5.8.5",
