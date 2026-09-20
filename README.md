@@ -153,7 +153,7 @@ Contributions are welcome! Please follow these guidelines:
 
 ## License
 
-This project is licensed under the ISC License - see the package.json file for details.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Support
 
@@ -166,6 +166,7 @@ This is part of the SkillSync platform ecosystem. Other related services include
 - [SkillSync Backend - Payment Service](https://github.com/mildoss/skillsync-backend-payment)
 - [SkillSync Backend - Auth Service](https://github.com/Eugene-Stellar/SkillSync-auth-service)
 - [SkillSync Frontend](https://github.com/mildoss/skillsync-frontend)
+- [SkillSync Mobile](https://github.com/mildoss/skillsync-mobile)
 
 ## OpenAI Integration
 
@@ -176,4 +177,4 @@ This service uses the OpenAI API for AI-powered features. Make sure you have:
 
 ---
 
-**Last Updated**: 2026-05-29
+**Last Updated**: 2026-09-20
